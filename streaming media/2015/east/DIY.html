@@ -1,0 +1,72 @@
+<html>
+<head>
+<script>
+    // set mimetype and codec
+    var mimeType = "video/mp4";
+    var codecs = "avc1.4D401F";
+    
+    // create media source instance
+    var ms = new MediaSource();
+    var sourceBuffer;
+    var segNum=0;
+    var maxSegNum = 65;
+    
+    function startup(){
+        // add event listeners
+        ms.addEventListener('sourceopen',opened,false);
+        ms.addEventListener('sourceclose',closed,false);
+        
+        // get reference to video
+        video = document.querySelector('video');
+        
+        // set mediasource as source of video
+        video.src = window.URL.createObjectURL(ms);
+      
+    }
+    function opened(){
+        // create source buffer
+        var value = mimeType+';codecs="'+codecs+'"';
+        sourceBuffer = ms.addSourceBuffer(value);
+        
+        // request initialization segment
+        var req = new XMLHttpRequest();
+        req.responseType = "arraybuffer";
+        req.open("GET","http://dash.edgesuite.net/envivio/dashpr/clear/video2/Header.m4s",true);
+        req.onload = function(){
+            var resp = req.response;
+            var array = new Uint8Array(resp);
+            sourceBuffer.appendBuffer(array);
+            // wait until sourceBuffer is primed with initialization segment before loading content
+            sourceBuffer.addEventListener("updateend",loadSegment);
+        }
+        req.send();
+    }
+    
+    function loadSegment(){
+        // this video has only 65 segments, so stop after 65
+        if(segNum < maxSegNum){
+            getSegment(segNum);
+            segNum++;
+        } 
+    }
+    
+    function getSegment(segNum){
+        var req = new XMLHttpRequest();
+        req.responseType = "arraybuffer";
+        req.open("GET","http://dash.edgesuite.net/envivio/dashpr/clear/video2/"+segNum+".m4s",true);
+        req.onload = function(){
+            var resp = req.response;
+            var array = new Uint8Array(resp);
+            sourceBuffer.appendBuffer(resp);
+        }
+        req.send();
+    }
+    window.onload = function() {
+        startup();
+    }
+</script>    
+</head>
+<body>
+    <video id="video" controls="true" autoplay="true"></video>
+</body>
+</html>
