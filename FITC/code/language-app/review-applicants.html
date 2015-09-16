@@ -1,0 +1,78 @@
+<link rel="import" href="components/polymer/polymer.html">
+<link rel="import" href="people-service.html">
+<link rel="import" href="language-service.html">
+<link rel="import" href="option-group.html">
+<link rel="import" href="applicant-card.html">
+
+<polymer-element name="review-applicants">
+
+    <template>
+        <style>
+            :host {
+                height: 100%;
+            }
+            #searchBox {
+                background: #8B83FF;
+                color: #ffffff;
+                padding: 0px 50px 0px 50px;
+            }
+
+            #list {
+                padding: 20px 0px 0px 50px;
+                margin-bottom: 20px;
+                width: 500px;
+            }
+        </style>
+
+        <people-service id="peopleService" people="{{applicants}}">
+        </people-service>
+
+        <language-service id="languageService" languages="{{languages}}">
+        </language-service>
+
+        <div layout horizontal>
+            <div id="list">
+                <template repeat="{{applicant in applicants | hasLanguage(criteria)}}">
+                    <applicant-card applicant="{{applicant}}"></applicant-card>
+                </template>
+            </div>
+            <div flex></div>
+            <div id="searchBox">
+                <option-group exclusive="false" dataProvider="{{languages}}" value="{{criteria}}">
+                    <h2>Search</h2>
+                    <div>Narrow applications by proficiency</div>
+                </option-group>
+            </div>
+        </div>
+
+    </template>
+
+    <script>
+        Polymer({
+            addApplicant: function ( applicant ) {
+                this.$.peopleService.addPerson( applicant );
+            },
+            hasLanguage: function ( applicants, searchLanguages ) {
+
+                if ( !searchLanguages || !searchLanguages.length )
+                    return applicants;
+
+                return applicants.filter( function( applicant ){
+
+                    if ( !applicant.selectedLanguages ) {
+                        return false;
+                    }
+
+                    return searchLanguages.every( function( selection ) {
+                        return applicant.selectedLanguages.some( function( language ) {
+                            return ( language.id==selection.id );
+                        })
+                    })
+                } )
+            }
+        });
+    </script>
+</polymer-element>
+
+
+

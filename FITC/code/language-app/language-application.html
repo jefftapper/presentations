@@ -1,0 +1,174 @@
+<link rel="import" href="components/polymer/polymer.html">
+<link rel="import" href="option-group.html">
+<link rel="import" href="language-service.html">
+
+<polymer-element name="language-application"
+                 attributes="model">
+    <template>
+        <style>
+            :host {
+                padding: 50px 0px 0px 0px;
+            }
+
+            form#application {
+                counter-reset: fieldsets;
+                padding: 20px 50px 20px 50px;
+            }
+            form#application fieldset {
+                border: none;
+                margin-bottom: 10px;
+            }
+            form#application legend {
+                color: #384313;
+                font-size: 16px;
+                font-weight: bold;
+                padding-bottom: 10px;
+                text-transform: uppercase;
+            }
+
+            form#application fieldset > legend:before {
+                content: "Step " counter(fieldsets) ": ";
+                counter-increment: fieldsets;
+            }
+
+            form#application fieldset fieldset legend {
+                color: #111111;
+                font-size: 13px;
+                font-weight: normal;
+                padding-bottom: 0;
+            }
+
+            form#application ol li {
+                line-height: 30px;
+                list-style: none;
+                padding: 5px 10px;
+                margin-bottom: 2px;
+            }
+            form#application ol ol li {
+                background: none;
+                border: none;
+                float: left;
+            }
+            form#application label {
+                float: left;
+                font-size: 15px;
+                width: 110px;
+            }
+            form#application fieldset fieldset label {
+                line-height: 20px;
+                padding: 0 0 0 30px;
+                width: auto;
+                font-weight: bolder;
+            }
+            form#application fieldset fieldset label:hover {
+                cursor: pointer;
+            }
+            form#application input:not([type=radio]),
+            form#application textarea {
+                background: #ffffff;
+                border: none;
+                -moz-border-radius: 3px;
+                -webkit-border-radius: 3px;
+                -khtml-border-radius: 3px;
+                border-radius: 3px;
+                font: italic 13px Georgia, "Times New Roman", Times, serif;
+                outline: none;
+                padding: 5px;
+                width: 200px;
+            }
+            form#application input:not([type=submit]):focus,
+            form#application textarea:focus {
+                background: #eaeaea;
+            }
+            #submitApp {
+                background: #8B83FF;
+                border: none;
+                -moz-border-radius: 10px;
+                -webkit-border-radius: 10px;
+                -khtml-border-radius: 10px;
+                border-radius: 10px;
+                color: #ffffff;
+                display: block;
+                letter-spacing: 1px;
+                margin: auto;
+                padding: 7px 25px;
+                text-transform: uppercase;
+            }
+            #submitApp:hover {
+                background: #2F2F5E;
+                cursor: pointer;
+            }
+
+            option-group {
+                font-size: 14px;
+            }
+
+            option-group::shadow input {
+                margin-bottom: 5px;
+            }
+        </style>
+
+        <language-service languages="{{languages}}">
+        </language-service>
+
+        <form id="application" layout horizontal>
+            <div>
+                <fieldset>
+                    <legend>Personal Information</legend>
+                    <ol>
+                        <li>
+                            <label for=firstName>First Name</label>
+                            <input id="firstName" name="firstName" type="text" placeholder="First Name" value="{{model.firstName}}" required autofocus>
+                        </li>
+                        <li>
+                            <label for=lastName>Last Name</label>
+                            <input id="lastName" name="lastName" type="text" placeholder="Last Name" value="{{model.lastName}}" required autofocus>
+                        </li>
+                    </ol>
+                </fieldset>
+                <fieldset>
+                    <legend>Contact Information</legend>
+                    <ol>
+                        <li>
+                            <label for=email>Email</label>
+                            <input id=email name=email type=email placeholder="email@example.com" value="{{model.email}}" required>
+                        </li>
+                        <li>
+                            <label for=phone>Phone</label>
+                            <input id=phone name=phone type=tel placeholder="Eg. +17736937800" value="{{model.phone}}" required>
+                        </li>
+                    </ol>
+                </fieldset>
+            </div>
+            <fieldset>
+                <legend>Languages Spoken</legend>
+                <option-group exclusive="false" dataProvider="{{languages}}" value="{{model.selectedLanguages}}">
+                    <div>Please select the languages in which you have proficiency</div>
+                </option-group>
+            </fieldset>
+            <template if="{{model.selectedLanguages.length > 0}}">
+                <fieldset>
+                    <legend>Native Language</legend>
+                    <option-group exclusive="true"
+                                  value="{{model.nativeLanguage}}"
+                                  dataProvider="{{model.selectedLanguages}}">
+                        <div>Please select your native language</div>
+                    </option-group>
+                </fieldset>
+            </template>
+        </form>
+        <div>
+            <button id="submitApp" type=submit on-click="{{submitMe}}">Submit Application</button>
+        </div>
+
+    </template>
+    <script>
+        Polymer({
+            model: {},
+            submitMe: function () {
+                this.fire('submitted', {model:this.model} );
+                this.model = {};
+            }
+        });
+    </script>
+</polymer-element>

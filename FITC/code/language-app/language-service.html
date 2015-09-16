@@ -1,0 +1,28 @@
+<link rel="import" href="components/polymer/polymer.html">
+<link rel="import" href="components/core-ajax/core-ajax.html">
+
+<polymer-element name="language-service" attributes="languages">
+    <template>
+        <style>
+            :host {
+                display: none;
+            }
+        </style>
+        <core-ajax id="ajax"
+                   auto
+                   url="data/languages.json"
+                   handleAs="json"
+                   on-core-response="{{loaded}}">
+        </core-ajax>
+    </template>
+    <script>
+        Polymer({
+            created: function() {
+                this.languages = [];
+            },
+            loaded: function() {
+                this.languages = this.$.ajax.response;
+            }
+        });
+    </script>
+</polymer-element>
