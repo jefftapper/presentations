@@ -1,0 +1,67 @@
+<link rel="import" href="components/polymer/polymer.html">
+<polymer-element name="option-group"
+         attributes="exclusive dataProvider value"
+         on-click="{{handleSelectionChanged}}">>
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+
+            .list {
+                margin-left:5px;
+            }
+        </style>
+
+        <content select="h2">
+        </content>
+
+        <div id="list">
+
+            <template repeat="{{language in dataProvider}}">
+                <div><input type="{{getInputType(exclusive)}}" value="{{language.id}}" name="options">{{language.name}}</div>
+            </template>
+
+        </div>
+
+        <br/>
+
+        <content select="*">
+        </content>
+
+    </template>
+
+
+    <script>
+        Polymer({
+            exclusive: false,
+            dataProvider: [],
+            value: [],
+            valueChanged: function(oldValue, newValue) {
+                if ( newValue == undefined ) {
+                    var selected = this.$.list.querySelectorAll("input:checked");
+
+                    for ( var i=0; i<selected.length; i++ ) {
+                        selected[i].checked = false;
+                    }
+                }
+            },
+            getInputType: function ( value ) {
+                return value?'radio':'checkbox';
+            },
+            handleSelectionChanged: function() {
+                var selected = this.$.list.querySelectorAll("input:checked");
+
+                this.value = this.dataProvider.filter( function( item ){
+                    for ( var i=0; i<selected.length; i++ ) {
+                        if ( item.id == selected[i].value ) {
+                            return true;
+                        }
+                    }
+                });
+
+                this.fire('selectionChanged', {model:this.model} );
+            }
+        });
+    </script>
+</polymer-element>

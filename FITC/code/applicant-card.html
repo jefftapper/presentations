@@ -1,0 +1,65 @@
+<link rel="import" href="components/polymer/polymer.html">
+
+<polymer-element name="applicant-card" attributes="applicant">
+    <template>
+        <style>
+            :host {
+                display: block;
+                font-size: 1.2rem;
+                font-weight: 300;
+                margin-bottom: 10px;
+            }
+            .card {
+                border: none;
+                -moz-border-radius: 10px;
+                -webkit-border-radius: 10px;
+                -khtml-border-radius: 10px;
+                border-radius: 10px;
+                background-color: white;
+                padding: 20px;
+            }
+            h2 {
+                margin: 2px;
+                font-size: 20px;
+                font-weight: 600;
+            }
+            h3 {
+                margin: 2px;
+                font-size: 16px;
+                font-weight: 300;
+            }
+
+            h3.phone {
+                margin: 7px 2px 7px 2px;
+                font-size: 16px;
+                font-weight: 300;
+            }
+        </style>
+
+        <div class="card" layout horizontal>
+            <div flex>
+                <h2>{{applicant.lastName}}, {{applicant.firstName}}</h2>
+                <h3>{{applicant.email }}</h3>
+                <h3 class="phone">{{applicant.phone}}</h3>
+            </div>
+            <div>
+                <h3>Languages Spoken</h3>
+                <ul>
+                    <template repeat="{{language in applicant.selectedLanguages}}">
+                        <li>{{language | primary(applicant.nativeLanguage[0])}}</li>
+                    </template>
+                </ul>
+            </div>
+        </div>
+    </template>
+    <script>
+        Polymer({
+            primary: function( language, native ) {
+                if (!native || native.id != language.id )
+                    return language.name;
+
+                return language.name + '*';
+            }
+        });
+    </script>
+</polymer-element>

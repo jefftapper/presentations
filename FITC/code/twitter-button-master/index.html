@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!-- 
+created by Zeno Rocha 
+source code available at https://github.com/social-elements/twitter-button
+-->
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>&lt;twitter-button&gt;</title>
+
+    <!-- Importing Web Component's Polyfill -->
+   <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
+
+    <!-- Importing Custom Elements -->
+    <link rel="import" href="src/twitter-button.html">
+  </head>
+
+  <body>
+    <twitter-button user="jefftapper" type="follow"></twitter-button>
+
+    <br><br>
+
+    <twitter-button user="jefftapper" type="share" hashtag="FITC-WebU" text="Great presentation on Web Components with Polymer" href="http://www.fitc.ca"></twitter-button>
+
+    <br><br>
+
+    <twitter-button type="hashtag" hashtag="FITC-WebU" href="http://www.fitc.ca" text="This is my text!"></twitter-button>
+
+    <br><br>
+
+    <twitter-button user="jefftapper" type="mention" text="Hello Everyone!"></twitter-button>
+  </body>
+</html>

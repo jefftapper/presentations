@@ -1,0 +1,31 @@
+<link rel="import" href="components/polymer/polymer.html">
+<link rel="import" href="components/core-ajax/core-ajax.html">
+
+<polymer-element name="people-service" attributes="people">
+    <template>
+        <style>
+            :host {
+                display: none;
+            }
+        </style>
+        <core-ajax id="ajax"
+                   auto
+                   url="data/people.json"
+                   handleAs="json"
+                   on-core-response="{{loaded}}">
+        </core-ajax>
+    </template>
+    <script>
+        Polymer({
+            created: function() {
+                this.people = [];
+            },
+            loaded: function() {
+                this.people = this.$.ajax.response;
+            },
+            addPerson: function( person ) {
+                this.people.push( person );
+            }
+        });
+    </script>
+</polymer-element>
