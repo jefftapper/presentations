@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>JWPlayer</title>
+    <script src="http://path/to/jwLibrary.js"></script>
+</head>
+<body>
+    <div id="videoPlayer_1">
+        INSERT CUSTOM FALLBACK CONTENT HERE.
+    </div>
+<script type="text/javascript">
+    var playerInstance_1 = jwplayer("videoPlayer_1").setup({
+  playlist: [{title: “VIDEO TITLE“, sources: [
+     {file: "<file_url_flash_rtmp_http_adaptive_etc>"},
+     {file: "<file_url_hls>"},
+     {file: "<file_url_mpeg4>"}]}],
+  autostart: true,
+  height: 360,
+  primary: "html5",
+  androidhls: true,
+  width: 640});
+</script>
+</body>
+</html>

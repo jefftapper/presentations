@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>castLabs DASH Everywhere Player Integration example</title>
+  <link href="http://vjs.zencdn.net/4.11.4/video-js.css" rel="stylesheet">
+  <script src="http://vjs.zencdn.net/4.11.4/video.js"></script>
+  <script src="cldasheverywhere.min.js"></script>
+</head>
+<body>
+<video id="vid" class="video-js vjs-default-skin vjs-big-play-centered" preload="auto" width="640px" height="480px">
+</video>
+<script>
+  //Init player
+  var config, player;
+  var config = {
+      "silverlightFile": "./dashcs/dashcs.xap",
+      "flashFile": './dashas/dashas.swf',
+      "techs": ['dashjs','dashas','dashcs']
+    };
+  player = videojs('vid', {
+    plugins: {
+      audiotracks: {
+         title: 'Languages'
+      },
+      texttracks: {
+         title: 'Subtitles'
+      }
+    },
+    autoplay: true,
+    controls: true,
+    dasheverywhere: config,
+    techOrder: ['dasheverywhere']
+  });
+  player.loadVideo("http://demo.castlabs.com/media/bbb_abr/Manifest.mpd", {});
+
+</script>
+</body>
+</html>

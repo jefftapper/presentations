@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!--
+*
+* Copyright (C) 2015, bitmovin GmbH, All Rights Reserved
+*
+* Created on: 2015/17/11 11:35:04
+* Author:     bitmovin GmbH <dash-player@bitmovin.net>
+*
+* This source code and its use and distribution, is subject to the terms
+* and conditions of the applicable license agreement.
+*
+-->
+<html lang="en">
+<head>
+<title>bitdash Sample Page</title>
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href='http://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'/>
+<!-- bitdash player -->
+<script type="text/javascript" src="//bitmovin-a.akamaihd.net/bitdash/latest/bitdash.min.js">
+</script>
+<style>
+    figure {
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      font-family: 'Dosis';
+      color:       white;
+      text-align:  center;
+    }
+    .container a {
+      color: white;
+    }
+    .container h1 {
+      font:          54px/66px 'Dosis';
+      margin-bottom: 22px;
+      line-height:   66px;
+    }
+    .container h2 {
+      font-weight:   normal;
+      margin-bottom: 36px;
+      line-height:   26px;
+    }
+    .player-wrapper {
+      width:        50%;
+      margin-right: auto;
+      margin-left:  auto;
+      box-shadow:   0 0 30px rgba(0,0,0,0.7);
+    }
+  </style>
+</head>
+<body background="//bitdash-a.akamaihd.net/webpages/bitmovin/images/background.jpg">
+  <div class="container">
+    <h1>HTML5 Adaptive Streaming Player for MPEG-DASH & HLS</h1>
+    <h2>Your videos play everywhere with low startup delay, no buffering and in highest quality.</h2>
+    <div class="content">
+      <div class="player-wrapper">
+        <div id="player"></div>
+      </div>
+      <div class="description">
+        <p>For more information about bitdash, please have a look at our online <a href="http://developer.dash-player.com/introduction" target="_blank">Developer Section.</a> The content was encoded using <a href="https://www.bitcodin.com/" target="_blank">bitcodin.</a>.</p>
+      </div>
+    </div>
+  </div>
+<script type="text/javascript">
+  var conf = {
+    key:              '77010c3d-01fb-4ea8-a1ef-c0e7a875d8b4',
+    source: {
+      dash:           '//bitdash-a.akamaihd.net/content/MI201109210084_1/mpds/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.mpd',
+      hls:            '//bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
+      progressive:    '//bitdash-a.akamaihd.net/content/MI201109210084_1/MI201109210084_mpeg-4_hd_high_1080p25_10mbits.mp4',
+      poster:         '//bitdash-a.akamaihd.net/content/MI201109210084_1/poster.jpg'
+    },
+    style: {
+      width:          '100%',
+      aspectratio:    '16:9'
+    },
+    skin: "https://bitdash-a.akamaihd.net/webpages/bitdash-player/skin-logo.json"
+  };
+
+  var player = bitdash("player").setup(conf);
+</script>
+</body>
+</html>

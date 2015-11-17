@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>FlowPlayer</title>
+    <script src="http://path/to/jwLibrary.js"></script>
+    <style>
+    .flowplayer {
+        background-color: #bbb;
+    }
+    </style>
+      <script src="path-to-flow-code/6.0.3/flowplayer.min.js"></script>
+    <script>
+    // display information about the video type
+        flowplayer(function (api) {
+          api.on("load", function (e, api, video) {
+            $("#vinfo").text(api.engine.engineName + " engine playing " + video.type);
+          });
+        });
+    </script>
+</head>
+<body>
+    <div class="flowplayer" data-ratio="0.5625">
+ 
+  <video>
+      <source type="application/x-mpegurl" src="/FlowplayerHTML5forWordPress.m3u8">
+      <source type="video/webm"            src="/FlowplayerHTML5forWordPress.webm">
+      <source type="video/mp4"             src="FlowplayerHTML5forWordPress.mp4">
+   </video>
+ 
+</div>
+ 
+<p id="vinfo" class="info">&nbsp;</p>
+</body>
+</html>
