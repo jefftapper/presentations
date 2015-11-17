@@ -1,37 +1,17 @@
 <html>
   <head>
-    <script type="text/javascript" src="http://html5video.org/kaltura-player/mwEmbedLoader.php"></script>
-	<script>
-		mw.setConfig('EmbedPlayer.EnableIpadHTMLControls', true );
-		mw.setConfig( 'EmbedPlayer.NativeControlsMobileSafari', false );
-	</script>
     <link rel="stylesheet" href="media/style.css" type="text/css" media="screen" />
   </head>
   <body>
-<div id="myVideoTarget" style="width:720px;height:306px;">
-	<!--  SEO and video metadata go here -->
-	<span property="dc:description" content="An Open Source Movie from the Project Durian"></span>
-	<span property="media:title" content="Sintel"></span>
-	<span property="media:width" content="720"></span>
-	<span property="media:height" content="306"></span>
-</div>
-
-<script>
-	mw.setConfig( 'KalturaSupport.LeadWithHTML5', true );
-	kWidget.embed({
-		'targetId': 'myVideoTarget',
-		'wid': '_322481',
-		'uiconf_id' : '8145862',
-		'entry_id' : '0_un4gy128',
-		'flashvars':{
-			'externalInterfaceDisabled' : false,
-			'autoPlay' : false,
-			'fooBar': 'cats'
-		},
-		'readyCallback': function( playerId ){
-			console.log( "kWidget player ready: " + playerId );
-		}
-	});
-</script>
+    <div id="myVideoContainer" itemprop="video" itemscope itemtype="http://schema.org/VideoObject" >
+      <div id="myVideoTarget" style="width:400px;height:330px;">
+        <!--  SEO and video metadata go here -->
+        <span itemprop="description" content="test folgers coffe"></span>
+        <span itemprop="name" content="FolgersCoffe.mpeg"></span>
+        <span itemprop="width" content="400"></span>
+        <span itemprop="height" content="300"></span>
+      </div>
+    </div>
+    <script src="http://cdnapi.kaltura.com/p/{partnerId}/sp/{partnerId}00/embedIframeJs/uiconf_id/{uiConfId}/partner_id/{partnerId}/entry_id/{entryId}/playerId/myVideoTarget?autoembed=true"></script>
   </body>
 </html>
