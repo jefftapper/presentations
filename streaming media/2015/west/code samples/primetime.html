@@ -1,24 +1,24 @@
 <html lang="en">
 <head>
-    <title>Primetime Standalone Client</title>
-    <script src= "../../frameworks/player/dash.min.js"></script>
-    <script src= "../../frameworks/player/primetimemain.min.js"></script>
-    <script src= "../../frameworks/player/primetimeei.min.js"></script>
-    <script>
-        function load () {
-            var player = new AdobePSDK.MediaPlayer();
-            var video = new AdobePSDK.MediaPlayerView(videoDiv);
-            player.setView(video);
-            var resourceUrl = "video.mpd”
-            var resourceType = AdobePSDK.MediaResource.Type.TYPE_ISOBMFF;
-            var mediaResource = new AdobePSDK.MediaResource(resourceUrl, resourceType, null, false);
-            player.replaceCurrentResource(mediaResource, new AdobePSDK.MediaPlayerItemConfig());
-                                }
-    </script>
+  <title>Primetime Standalone Client</title>
+  <script src= "player/dash.min.js"></script>
+  <script src= "player/primetimemain.min.js"></script>
+  <script src= "player/primetimeei.min.js"></script>
+  <script>
+    function load () {
+      var player = new AdobePSDK.MediaPlayer();
+      var video = new AdobePSDK.MediaPlayerView(videoDiv);
+      player.setView(video);
+      var resourceUrl = "video.mpd”
+      var resourceType = AdobePSDK.MediaResource.Type.TYPE_ISOBMFF;
+      var mediaResource = new AdobePSDK.MediaResource(resourceUrl, resourceType, null, false);
+      player.replaceCurrentResource(mediaResource, new AdobePSDK.MediaPlayerItemConfig());
+                }
+  </script>
 </head>
 <body onload="load()">
-    <div id="videoDiv" style="background:white;">
-        <video autoplay controls height="100%" width="100%"></video>
-    </div>
+  <div id="videoDiv" style="background:white;">
+    <video autoplay controls height="100%" width="100%"></video>
+  </div>
 </body>
 </html>
